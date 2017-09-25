@@ -1,6 +1,4 @@
-# CodeWars 刷题
-
-标签（空格分隔）： codewars
+# CodeWars 刷题s
 
 ---
 ## Replace With Alphabet Position ##
