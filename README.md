@@ -1,8 +1,6 @@
-# CodeWars 刷题
----
 ## Replace With Alphabet Position ##
 
-you are required to, given a string, replace every letter with its position in the alphabet.
+> you are required to, given a string, replace every letter with its position in the alphabet.
 
 If anything in the text isn't a letter, ignore it and don't return it.
 
