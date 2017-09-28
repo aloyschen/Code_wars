@@ -40,8 +40,22 @@ def order_modify(sentence):
 """
 def toJadenCase(string):
     return " ".join(word.capitalize() for word in string.split())
+
+
+"""
+统计字符串中重复出现的字符个数
+"""
+def duplicate_count(text):
+    # Your code goes here
+    count = 0
+    for character in "".join(set(text)):
+        if text.lower().count(character) > 1:
+            count = count + 1
+    return count
+
 if __name__ == "__main__":
     path = ['s', 'e', 's', 'w', 'e', 'w', 'n', 'n', 's', 'n']
     print(isValidWalk(path))
     print(order_modify("is2 Thi1s T4est 3a"))
     print(toJadenCase("how i can"))
+    print(duplicate_count("abcdeaaa"))
