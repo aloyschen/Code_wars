@@ -29,10 +29,19 @@ def order(sentence):
     for item in order_sentence:
         result += item[1] + ' '
     return result.strip()
+"""
+和上个函数实现的功能一样
+"""
 def order_modify(sentence):
     return " ".join(sorted(sentence.split(), key = lambda x: int("".join(filter(str.isdigit, x)))))
 
+"""
+将每个单词的首字母转换为大写
+"""
+def toJadenCase(string):
+    return " ".join(word.capitalize() for word in string.split())
 if __name__ == "__main__":
     path = ['s', 'e', 's', 'w', 'e', 'w', 'n', 'n', 's', 'n']
     print(isValidWalk(path))
     print(order_modify("is2 Thi1s T4est 3a"))
+    print(toJadenCase("how i can"))
