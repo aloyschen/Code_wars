@@ -52,6 +52,12 @@ def duplicate_count(text):
         if text.lower().count(character) > 1:
             count = count + 1
     return count
+"""
+python的三元表达式
+"""
+def hoopCount(n):
+    # Good Luck!
+    return "Great, now move on to tricks" if n >= 10 else "Keep at it until you get it"
 
 if __name__ == "__main__":
     path = ['s', 'e', 's', 'w', 'e', 'w', 'n', 'n', 's', 'n']
@@ -59,3 +65,4 @@ if __name__ == "__main__":
     print(order_modify("is2 Thi1s T4est 3a"))
     print(toJadenCase("how i can"))
     print(duplicate_count("abcdeaaa"))
+    print(hoopCount(5))
