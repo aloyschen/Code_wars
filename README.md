@@ -8,9 +8,11 @@
 [python字符串过滤和排序][4]
 - **2017.09.28**
 [python字符串首字母大写和字符串去重][5]
-
+- **2017.09.29**
+[python字符串列表中长度最大字符串][6]
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
   [3]: https://www.zybuluo.com/aloyschen/note/899632
   [4]: https://www.zybuluo.com/aloyschen/note/899895
   [5]: https://www.zybuluo.com/aloyschen/note/901785
+  [6]: https://www.zybuluo.com/aloyschen/note/903080

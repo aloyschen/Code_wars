@@ -18,8 +18,45 @@ def calculate_years(principal, interest, tax, desired):
         years = years + 1
     return years
 
-
+"""
+求两个字符串数组中最大长度差值
+"""
+def mxdiflg(a1, a2):
+    if len(a1) is 0 or len(a2) is 0:
+        return -1
+    max_a1, min_a1 = 0, 1000000
+    max_a2, min_a2 = 0, 1000000
+    result = 0
+    for word in a1:
+        length_first = len(word)
+        if length_first > max_a1:
+            max_a1 = length_first
+        if length_first < min_a1:
+            min_a1 = length_first
+    for word in a2:
+        length_second = len(word)
+        if length_second > max_a2:
+            max_a2 = length_second
+        if length_second < min_a2:
+            min_a2 = length_second
+    if(abs(max_a2 - min_a1) > abs(max_a1 - min_a2)):
+        result = abs(max_a2 - min_a1)
+    else:
+        result = abs(max_a1 - min_a2)
+    return result
+"""
+上述问题最简洁版本
+"""
+def mxdiflg_best(a1, a2):
+    if a1 and a2:
+        return max(
+            len(max(a1, key=len)) - len(min(a2, key=len)),
+            len(max(a2, key=len)) - len(min(a1, key=len)))
+    return -1
 
 if __name__ == "__main__":
     print(validate_pin("12a4"))
     print(calculate_years(1000, 0.05, 0.18, 1100))
+    s1 = ["hoqq", "bbllkw", "oox", "ejjuyyy", "plmiis", "xxxzgpsssa", "xxwwkktt", "znnnnfqknaz", "qqquuhii", "dvvvwz"]
+    s2 = ["cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww"]
+    print(mxdiflg(s1, s2))
