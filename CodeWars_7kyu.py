@@ -61,6 +61,19 @@ def mxdiflg_best(a1, a2):
 def reverse_words(str):
     return ' '.join(word[::-1] for word in str.split())
 
+"""
+该函数找到数组中最小值，然后返回Index
+"""
+def findSmallestInt(arr):
+    #Code here
+    smallest = arr[0]
+    index = 0
+    for item in range(len(arr)):
+        print(arr[item])
+        if smallest > arr[item]:
+            smallest = arr[item]
+            index = item
+    return index
 
 if __name__ == "__main__":
     print(validate_pin("12a4"))
@@ -69,3 +82,4 @@ if __name__ == "__main__":
     s2 = ["cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww"]
     print(mxdiflg(s1, s2))
     print(reverse_words('This is an example!'))
+    print(findSmallestInt([78,56,232,12,11,43]))
