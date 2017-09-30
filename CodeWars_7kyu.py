@@ -1,3 +1,4 @@
+import numpy as np
 """
 判断字符串pin是否为4位或者6位
 """
@@ -54,9 +55,17 @@ def mxdiflg_best(a1, a2):
             len(max(a2, key=len)) - len(min(a1, key=len)))
     return -1
 
+"""
+该函数利用反向切片反转字符串
+"""
+def reverse_words(str):
+    return ' '.join(word[::-1] for word in str.split())
+
+
 if __name__ == "__main__":
     print(validate_pin("12a4"))
     print(calculate_years(1000, 0.05, 0.18, 1100))
     s1 = ["hoqq", "bbllkw", "oox", "ejjuyyy", "plmiis", "xxxzgpsssa", "xxwwkktt", "znnnnfqknaz", "qqquuhii", "dvvvwz"]
     s2 = ["cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww"]
     print(mxdiflg(s1, s2))
+    print(reverse_words('This is an example!'))
