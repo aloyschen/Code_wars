@@ -74,6 +74,12 @@ def findSmallestInt(arr):
             smallest = arr[item]
             index = item
     return index
+"""
+找出字符串数组中字符长度为4的字符串
+"""
+def friend(x):
+    #Code
+    return [friend for friend in x if len(friend) == 4]
 
 if __name__ == "__main__":
     print(validate_pin("12a4"))
@@ -83,3 +89,4 @@ if __name__ == "__main__":
     print(mxdiflg(s1, s2))
     print(reverse_words('This is an example!'))
     print(findSmallestInt([78,56,232,12,11,43]))
+    print(friend(["Ryan", "Kieran", "Mark",]))
