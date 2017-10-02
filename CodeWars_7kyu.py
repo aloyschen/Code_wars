@@ -84,7 +84,6 @@ def friend(x):
 该函数判断在[m,n]区间内的质数之间的差值为g的第一组质数
 若没有满足条件的则返回Null
 """
-
 def gap(g, m, n):
     # your code
     result = []

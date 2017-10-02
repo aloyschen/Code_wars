@@ -12,6 +12,8 @@
 [python字符串列表中长度最大字符串][6]
 - **2017.09.30**
 [python字符串反转][7]
+- **2017.10.02**
+[质数判断和生成算法][8]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -20,3 +22,4 @@
   [5]: https://www.zybuluo.com/aloyschen/note/901785
   [6]: https://www.zybuluo.com/aloyschen/note/903080
   [7]: https://www.zybuluo.com/aloyschen/note/903517
+  [8]: https://www.zybuluo.com/aloyschen/note/904764
