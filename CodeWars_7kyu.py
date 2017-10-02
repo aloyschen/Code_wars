@@ -80,6 +80,42 @@ def findSmallestInt(arr):
 def friend(x):
     #Code
     return [friend for friend in x if len(friend) == 4]
+"""
+该函数判断在[m,n]区间内的质数之间的差值为g的第一组质数
+若没有满足条件的则返回Null
+"""
+
+def gap(g, m, n):
+    # your code
+    result = []
+    last_prime = 2
+    for number in range(m, n):
+        prime = True
+        if number < 2:
+            prime = False
+        if number == 3:
+            prime = True
+        if number % 2 == 0:
+            prime = False
+        if number % 3 == 0:
+            prime = False
+        i = 5
+        while i ** 2 <= number:
+            if number % i == 0 or number % (i + 2) == 0:
+                prime = False
+            i += 6
+        if(prime):
+            if number - last_prime == g:
+                return [last_prime, number]
+            else:
+                last_prime = number
+    if last_prime == 2:
+        return None
+
+
+
+
+
 
 if __name__ == "__main__":
     print(validate_pin("12a4"))
@@ -90,3 +126,4 @@ if __name__ == "__main__":
     print(reverse_words('This is an example!'))
     print(findSmallestInt([78,56,232,12,11,43]))
     print(friend(["Ryan", "Kieran", "Mark",]))
+    print(gap(8,300,400))
