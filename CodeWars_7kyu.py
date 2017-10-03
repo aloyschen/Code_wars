@@ -110,9 +110,27 @@ def gap(g, m, n):
                 last_prime = number
     if last_prime == 2:
         return None
-
-
-
+"""
+该函数移除数组中最小的数字，不改变之前的数组顺序
+"""
+def remove_smallest(numbers):
+    if(numbers):
+        return numbers.remove(min(numbers))
+    return numbers
+"""
+正则匹配
+"""
+from re import compile, VERBOSE
+def regex_test(str):
+    regex = compile("""
+    ^              # begin word
+    (?=.*?[a-z])   # at least one lowercase letter
+    (?=.*?[A-Z])   # at least one uppercase letter
+    (?=.*?[0-9])   # at least one number
+    [A-Za-z\d]     # only alphanumeric
+    {6,}           # at least 6 characters long
+    $              # end word
+    """, VERBOSE)
 
 
 
@@ -126,3 +144,4 @@ if __name__ == "__main__":
     print(findSmallestInt([78,56,232,12,11,43]))
     print(friend(["Ryan", "Kieran", "Mark",]))
     print(gap(8,300,400))
+    print(remove_smallest([5, 3, 2, 1, 4]))
