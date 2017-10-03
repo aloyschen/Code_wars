@@ -131,7 +131,12 @@ def regex_test(str):
     {6,}           # at least 6 characters long
     $              # end word
     """, VERBOSE)
-
+"""
+该函数返回一个指定行数和列数的矩阵数组
+"""
+def multiplication_table(row,col):
+    # Good Luck!
+    return [[(i + 1) * (j + 1) for j in range(col)] for i in range(row)]
 
 
 if __name__ == "__main__":
@@ -145,3 +150,4 @@ if __name__ == "__main__":
     print(friend(["Ryan", "Kieran", "Mark",]))
     print(gap(8,300,400))
     print(remove_smallest([5, 3, 2, 1, 4]))
+    print(multiplication_table(3,3))
