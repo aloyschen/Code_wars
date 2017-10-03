@@ -14,6 +14,8 @@
 [python字符串反转][7]
 - **2017.10.02**
 [质数判断和生成算法][8]
+- **2017.10.03**
+[正则匹配相关知识点][9]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -23,3 +25,4 @@
   [6]: https://www.zybuluo.com/aloyschen/note/903080
   [7]: https://www.zybuluo.com/aloyschen/note/903517
   [8]: https://www.zybuluo.com/aloyschen/note/904764
+  [9]: https://www.zybuluo.com/aloyschen/note/905194
