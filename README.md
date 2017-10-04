@@ -16,6 +16,8 @@
 [质数判断和生成算法][8]
 - **2017.10.03**
 [正则匹配相关知识点][9]
+- **2017.10.04**
+[进制的转换][10]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -26,3 +28,4 @@
   [7]: https://www.zybuluo.com/aloyschen/note/903517
   [8]: https://www.zybuluo.com/aloyschen/note/904764
   [9]: https://www.zybuluo.com/aloyschen/note/905194
+  [10]: https://www.zybuluo.com/aloyschen/note/905682

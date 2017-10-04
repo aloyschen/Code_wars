@@ -24,4 +24,4 @@ def convert(input, source, target):
         out = d + out
     return out if out else target[0]
 if __name__ == "__main__":
-    print(convert("hello", allow, hex))
+    print(convert("abc", allow, hex))
