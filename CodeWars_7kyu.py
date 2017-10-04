@@ -1,4 +1,5 @@
 import numpy as np
+
 """
 判断字符串pin是否为4位或者6位
 """
@@ -131,6 +132,8 @@ def regex_test(str):
     {6,}           # at least 6 characters long
     $              # end word
     """, VERBOSE)
+
+
 """
 该函数返回一个指定行数和列数的矩阵数组
 """
@@ -138,6 +141,32 @@ def multiplication_table(row,col):
     # Good Luck!
     return [[(i + 1) * (j + 1) for j in range(col)] for i in range(row)]
 
+"""
+数组第n个数是前n个数之和，最后返回前n个值
+"""
+def Xbonacci(signature, n):
+    #your code here
+    num = len(signature)
+    print(num)
+    for time in range(n - num):
+        print(signature[-num : ])
+        signature.append(sum(signature[-num : ]))
+    return signature
+
+def convert(input, source, target):
+    base_in = len(source)
+    base_out = len(target)
+    acc = 0
+    out = ''
+    for d in input:
+        acc *= base_in
+        print(source.index(d))
+        acc += source.index(d)
+    while acc != 0:
+        d = target[acc % base_out]
+        acc = acc/base_out
+        out = d + out
+    return out if out else target[0]
 
 if __name__ == "__main__":
     print(validate_pin("12a4"))
@@ -151,3 +180,4 @@ if __name__ == "__main__":
     print(gap(8,300,400))
     print(remove_smallest([5, 3, 2, 1, 4]))
     print(multiplication_table(3,3))
+    print(Xbonacci([0,1], 10))
