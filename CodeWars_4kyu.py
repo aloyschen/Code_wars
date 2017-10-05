@@ -6,6 +6,7 @@ allow = 'abcdefghijklmnopqrstuvwxyz'
 allup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 alphanum = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+import numpy as np
 """
 该函数用于不同进制之间的转换
 """
@@ -24,4 +25,8 @@ def convert(input, source, target):
         out = d + out
     return out if out else target[0]
 if __name__ == "__main__":
-    print(convert("abc", allow, hex))
+    # print(convert("abc", allow, hex))
+    a = np.zeros((2, 2, 3))
+    b = np.ones((2, 2, 3))
+    print("a ====", a, "\n", "b ====", b)
+    print(np.concatenate((a, b), axis = 2))
