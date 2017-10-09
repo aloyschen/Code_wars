@@ -18,6 +18,8 @@
 [正则匹配相关知识点][9]
 - **2017.10.04**
 [进制的转换][10]
+- **2017.10.09**
+[字符串分割和反转][11]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -29,3 +31,4 @@
   [8]: https://www.zybuluo.com/aloyschen/note/904764
   [9]: https://www.zybuluo.com/aloyschen/note/905194
   [10]: https://www.zybuluo.com/aloyschen/note/905682
+  [11]: https://www.zybuluo.com/aloyschen/note/909103
