@@ -20,6 +20,8 @@
 [进制的转换][10]
 - **2017.10.09**
 [字符串分割和反转][11]
+- **2017.10.10**
+[时间格式的转换][12]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -32,3 +34,4 @@
   [9]: https://www.zybuluo.com/aloyschen/note/905194
   [10]: https://www.zybuluo.com/aloyschen/note/905682
   [11]: https://www.zybuluo.com/aloyschen/note/909103
+  [12]: https://www.zybuluo.com/aloyschen/note/910553
