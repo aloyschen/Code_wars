@@ -22,6 +22,8 @@
 [字符串分割和反转][11]
 - **2017.10.10**
 [时间格式的转换][12]
+- **2017.10.10**
+[德州扑克比大小][13]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -34,4 +36,5 @@
   [9]: https://www.zybuluo.com/aloyschen/note/905194
   [10]: https://www.zybuluo.com/aloyschen/note/905682
   [11]: https://www.zybuluo.com/aloyschen/note/909103
-  [12]: https://www.zybuluo.com/aloyschen/note/910553
+  [12]: https://www.zybuluo.com/aloyschen/note/911907
+  [13]: https://www.zybuluo.com/aloyschen/note/910553
