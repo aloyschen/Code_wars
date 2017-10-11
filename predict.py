@@ -30,7 +30,6 @@ def variable_with_weight_loss(shape, stddev, wl):
 
 """
 该函数是对图像进行标准化处理
-这样可以进行可视化，否则图像显示出来是一片黑
 param matrix: 图像中一个区域的矩阵，通道为蓝，绿，红，近地
 return matrix: 经过标准化处理之后的图像数据
 """
@@ -121,8 +120,8 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
                 he = hs + each_weight
                 ws = j * width_step
                 we = ws + each_width
-                test_2015 = scale_percentile(im_2015[hs:he, ws:we, :4])
-                test_2017 = scale_percentile(im_2017[hs:he, ws:we, :4])
+                test_2015 = scale_percentile(im_2015[hs:he, ws:we, :])
+                test_2017 = scale_percentile(im_2017[hs:he, ws:we, :])
                 test_input = np.array([np.concatenate((test_2015, test_2017), axis = 2)])
                 result = sess.run(predict, feed_dict = {image_holder: test_input}).flatten().reshape(24,24)
                 image_array[hs:he, ws:we] = result

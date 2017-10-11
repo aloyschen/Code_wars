@@ -7,6 +7,7 @@ allup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 alphanum = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 import numpy as np
+from CodeTest import Test
 """
 该函数用于不同进制之间的转换
 """
@@ -50,6 +51,31 @@ def format_duration(seconds):
 
     return ', '.join(chunks[:-1]) + ' and ' + chunks[-1] if len(chunks) > 1 else chunks[0]
 
+"""
+该类是用于德州扑克两个人比较大小
+"""
+class PokerHand(object):
+    CARD = "23456789TJQKA"
+    RESULT = ["Loss", "Tie", "Win"]
+
+    def __init__(self, hand):
+        values = ''.join(sorted(hand[::3], key = self.CARD.index))
+        suits = set(hand[1::3])
+        is_straight = values in self.CARD
+        is_flush = len(suits) == 1
+        self.score = (2 * sum(values.count(card) for card in values)
+                      + 13 * is_straight + 15 * is_flush,
+                      [self.CARD.index(card) for card in values[::-1]])
+        print(self.score)
+    def compare_with(self, other):
+        return self.RESULT[(self.score > other.score) - (self.score < other.score) + 1]
+
+
+def runTest(msg, expected, hand, other):
+    test = Test()
+    player, opponent = PokerHand(hand), PokerHand(other)
+    test.assert_equals(player.compare_with(opponent), expected, "{}: '{}' against '{}'".format(msg, hand, other))
+
 
 if __name__ == "__main__":
     # print(convert("abc", allow, hex))
@@ -58,3 +84,4 @@ if __name__ == "__main__":
     print("a ====", a, "\n", "b ====", b)
     print(np.concatenate((a, b), axis = 2))
     print(format_duration(3600))
+    runTest("Highest straight flush wins", "Loss", "2H 3H 4H 5H 6H", "KS AS TS QS JS")
