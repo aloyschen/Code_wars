@@ -8,10 +8,11 @@ alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 alphanum = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 import numpy as np
 from CodeTest import Test
-"""
-该函数用于不同进制之间的转换
-"""
+
 def convert(input, source, target):
+    """
+    该函数用于不同进制之间的转换
+    """
     base_in = len(source)
     base_out = len(target)
     acc = 0
@@ -25,11 +26,14 @@ def convert(input, source, target):
         acc = acc/base_out
         out = d + out
     return out if out else target[0]
-"""
-该函数用于将时间转换为对人友好的形式
-Param seconds: 代表时间的非0整数
-"""
+
 def format_duration(seconds):
+    """
+    该函数用于将时间转换为对人友好的形式
+    Parameters
+    ----------
+        seconds: 代表时间的非0整数
+    """
     times = [("year", 365 * 24 * 60 * 60),
              ("day", 24 * 60 * 60),
              ("hour", 60 * 60),
@@ -51,10 +55,11 @@ def format_duration(seconds):
 
     return ', '.join(chunks[:-1]) + ' and ' + chunks[-1] if len(chunks) > 1 else chunks[0]
 
-"""
-该类是用于德州扑克两个人比较大小
-"""
+
 class PokerHand(object):
+    """
+    该类是用于德州扑克两个人比较大小
+    """
     CARD = "23456789TJQKA"
     RESULT = ["Loss", "Tie", "Win"]
 

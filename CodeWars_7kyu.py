@@ -1,29 +1,32 @@
 import numpy as np
 
-"""
-判断字符串pin是否为4位或者6位
-"""
+
 def validate_pin(pin):
+    """
+    判断字符串pin是否为4位或者6位
+    """
     print(pin.isdigit())
     if pin.isdigit() and (len(pin) is 4 or len(pin) is 6):
         return True
     else:
         return False
-"""
-该函数根据本金、利率以及税率计算需要几年达到目标
-"""
+
 
 def calculate_years(principal, interest, tax, desired):
+    """
+    该函数根据本金、利率以及税率计算需要几年达到目标
+    """
     years = 0
     while principal < desired:
         principal += principal * interest * (1 - tax)
         years = years + 1
     return years
 
-"""
-求两个字符串数组中最大长度差值
-"""
+
 def mxdiflg(a1, a2):
+    """
+    求两个字符串数组中最大长度差值
+    """
     if len(a1) is 0 or len(a2) is 0:
         return -1
     max_a1, min_a1 = 0, 1000000
@@ -46,26 +49,31 @@ def mxdiflg(a1, a2):
     else:
         result = abs(max_a1 - min_a2)
     return result
-"""
-上述问题最简洁版本
-"""
+
+
+
 def mxdiflg_best(a1, a2):
+    """
+    上述问题最简洁版本
+    """
     if a1 and a2:
         return max(
             len(max(a1, key=len)) - len(min(a2, key=len)),
             len(max(a2, key=len)) - len(min(a1, key=len)))
     return -1
 
-"""
-该函数利用反向切片反转字符串
-"""
+
 def reverse_words(str):
+    """
+    该函数利用反向切片反转字符串
+    """
     return ' '.join(word[::-1] for word in str.split())
 
-"""
-该函数找到数组中最小值，然后返回Index
-"""
+
 def findSmallestInt(arr):
+    """
+    该函数找到数组中最小值，然后返回Index
+    """
     #Code here
     smallest = arr[0]
     index = 0
@@ -75,17 +83,19 @@ def findSmallestInt(arr):
             smallest = arr[item]
             index = item
     return index
-"""
-找出字符串数组中字符长度为4的字符串
-"""
+
 def friend(x):
+    """
+    找出字符串数组中字符长度为4的字符串
+    """
     #Code
     return [friend for friend in x if len(friend) == 4]
-"""
-该函数判断在[m,n]区间内的质数之间的差值为g的第一组质数
-若没有满足条件的则返回Null
-"""
+
 def gap(g, m, n):
+    """
+    该函数判断在[m,n]区间内的质数之间的差值为g的第一组质数
+    若没有满足条件的则返回Null
+    """
     # your code
     result = []
     last_prime = 2
@@ -111,18 +121,20 @@ def gap(g, m, n):
                 last_prime = number
     if last_prime == 2:
         return None
-"""
-该函数移除数组中最小的数字，不改变之前的数组顺序
-"""
+
 def remove_smallest(numbers):
+    """
+    该函数移除数组中最小的数字，不改变之前的数组顺序
+    """
     if(numbers):
         return numbers.remove(min(numbers))
     return numbers
-"""
-正则匹配
-"""
+
 from re import compile, VERBOSE
 def regex_test(str):
+    """
+    正则匹配
+    """
     regex = compile("""
     ^              # begin word
     (?=.*?[a-z])   # at least one lowercase letter
@@ -134,17 +146,19 @@ def regex_test(str):
     """, VERBOSE)
 
 
-"""
-该函数返回一个指定行数和列数的矩阵数组
-"""
+
 def multiplication_table(row,col):
+    """
+    该函数返回一个指定行数和列数的矩阵数组
+    """
     # Good Luck!
     return [[(i + 1) * (j + 1) for j in range(col)] for i in range(row)]
 
-"""
-数组第n个数是前n个数之和，最后返回前n个值
-"""
+
 def Xbonacci(signature, n):
+    """
+    数组第n个数是前n个数之和，最后返回前n个值
+    """
     #your code here
     num = len(signature)
     print(num)

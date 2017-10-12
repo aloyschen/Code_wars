@@ -1,7 +1,8 @@
-"""
-该函数是将输入的列表中的数字，每8个
-"""
+
 def data_reverse(data):
+    """
+    该函数是将输入的列表中的数字，每8个
+    """
     split_data = []
     result = []
     for i in range(0, len(data), 8):
@@ -9,23 +10,31 @@ def data_reverse(data):
     for item in split_data:
         result = result + item
     return result
-"""
-该函数先将字符串按照\n分割，然后反转
-Param string: 输入字符串
-Return 反转后的字符串
-"""
+
 def rot(string):
+    """
+    该函数先将字符串按照\n分割，然后反转
+    Parameters
+    ----------
+        string: 输入字符串
+    Returns
+    -------
+        反转后的字符串
+    """
     result = []
     for item in string.split("\n"):
         result.insert(0, item[ : : -1])
     return "\\n".join(result)
 
 
-"""
-该函数在翻转的同时，将过程打印出来
-Param string: 输入字符串
-"""
+
 def selfie_and_rot(string):
+    """
+    该函数在翻转的同时，将过程打印出来
+    Parameters
+    ----------
+        string: 输入字符串
+    """
     split_str = string.split("\n")
     result = []
     for item in split_str:

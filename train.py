@@ -13,26 +13,36 @@ import tifffile as tiff
 train_Path = '../training_pic/'
 Model_Path = 'model0.ckpt'
 
-"""
-该函数是用于将所有样本图像的名字打乱
-Param Path:训练样本根目录
-Return name_list: 打乱之后的样本名字列表
-"""
+
 def shuffle_namelist(Path):
+    """
+    该函数是用于将所有样本图像的名字打乱
+    Parameters
+    ----------
+        Path:训练样本根目录
+    Returns
+    -------
+        name_list: 打乱之后的样本名字列表
+    """
     name_list = list(set([name.split('_')[0] for name in os.listdir(Path)]))
     random.shuffle(name_list)
     return name_list
 
-name_list=shuffle_namelist(train_Path)
-"""
-该函数用于获取每次迭代所需的正负样本图像名字列表
-Param name_list: 所有正负样本的名字列表
-      batch_size: 每次训练迭代需要的样本数
-      start_index: 开始的编号
-Return image_batch: 包含正负样本名字的数组
-       label_batch: 包含标签的样本名字和数组
-"""
+
+
 def read_2_namelist(name_list, batch_size, start_index):
+    """
+    该函数用于获取每次迭代所需的正负样本图像名字列表
+    Parameters
+    ----------
+        name_list: 所有正负样本的名字列表
+        batch_size: 每次训练迭代需要的样本数
+        start_index: 开始的编号
+    Returns
+    -------
+        image_batch: 包含正负样本名字的数组
+        label_batch: 包含标签的样本名字和数组
+    """
     image_batch = []
     label_batch = []
     if start_index + batch_size > len(name_list):
@@ -44,15 +54,20 @@ def read_2_namelist(name_list, batch_size, start_index):
     return np.array(image_batch), np.array(label_batch), (start_index + batch_size) % len(name_list)
 
 
-"""
-该函数按照正态分布初始化权重
-Param shape: 权值矩阵大小
-      stddev: 正态分布标准差
-      wl: 是否采用L2正则化
-Return var: 随机生成的权值初始值
-"""
+
 
 def variable_with_weight_loss(shape, stddev, wl):
+    """
+    该函数按照正态分布初始化权重
+    Parameters
+    ----------
+        shape: 权值矩阵大小
+        stddev: 正态分布标准差
+        wl: 是否采用L2正则化
+    Returns
+    -------
+        var: 随机生成的权值初始值
+    """
     # truncated_normal从截断的正态分布中输出随机值。
     var = tf.Variable(tf.truncated_normal(shape, stddev = stddev))
     if wl is not None:
@@ -61,18 +76,23 @@ def variable_with_weight_loss(shape, stddev, wl):
     return var
 
 
-"""
-该函数用于创建训练模型
-Param input_size_height: 输入图像的高度
-      input_size_width: 输入图像的宽度
-      input_passageway_num: 输入图像的通道数
-      model_path: 模型保存路径
-      batch_size: 每次迭代的样本数
-Return logits: 预测的结果
-       image_holder: 存储图像的数据结构
-       label_holder: 存储标签的数据结构
-"""
+
 def train_model(input_size_height = 24, input_size_width = 24, input_passageway_num = 8, model_path = 'model0.ckpt', batch_size = 128):
+    """
+    该函数用于创建训练模型
+    Parameters
+    ----------
+        input_size_height: 输入图像的高度
+        input_size_width: 输入图像的宽度
+        input_passageway_num: 输入图像的通道数
+        model_path: 模型保存路径
+        batch_size: 每次迭代的样本数
+    Returns
+    -------
+        logits: 预测的结果
+        image_holder: 存储图像的数据结构
+        label_holder: 存储标签的数据结构
+    """
     out_label_num = input_size_height * input_size_width
     image_holder = tf.placeholder(tf.float32, [batch_size, input_size_height, input_size_width, input_passageway_num])
     label_holder = tf.placeholder(tf.int32, [batch_size, out_label_num])
@@ -107,10 +127,11 @@ def train_model(input_size_height = 24, input_size_width = 24, input_passageway_
     return logits, label_holder, image_holder
 
 
-"""
-还没看懂怎么算得train_loss
-"""
+
 def log_loss(logits, labels):
+    """
+    还没看懂怎么算得train_loss
+    """
     print ('logits=',np.shape(logits))
     print ('labels0=',np.shape(labels))
     labels = tf.cast(labels, tf.float32)
@@ -124,15 +145,19 @@ def log_loss(logits, labels):
     return tf.add_n(tf.get_collection('losses'), name = 'total_loss')
 
 
-"""
-该函数用于训练、保存模型
-Param gpu_index: 设置使用的gpu编号
-      model_path: 模型保存路径
-      iter_num: 总共迭代的次数
-      batch_size: 每次迭代需要的样本数量
-      learning_rate: 学习速率
-"""
+
 def run_train(gpu_index = "0", model_path = 'model0.ckpt', iter_num = 10000, batch_size = 128, learning_rate = 0.001):
+    """
+    该函数用于训练、保存模型
+    Parameters
+    ----------
+        gpu_index: 设置使用的gpu编号
+        model_path: 模型保存路径
+        iter_num: 总共迭代的次数
+        batch_size: 每次迭代需要的样本数量
+        learning_rate: 学习速率
+    """
+    name_list = shuffle_namelist(train_Path)
     logits, label_holder, image_holder = train_model()
     loss = log_loss(logits, label_holder)
     train_op = tf.train.AdamOptimizer(1e-3).minimize(loss)
