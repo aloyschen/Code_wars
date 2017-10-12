@@ -22,8 +22,10 @@
 [字符串分割和反转][11]
 - **2017.10.10**
 [时间格式的转换][12]
-- **2017.10.10**
+- **2017.10.11**
 [德州扑克比大小][13]
+- **2017.10.12**
+[动物园谁吃谁][14]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -38,3 +40,4 @@
   [11]: https://www.zybuluo.com/aloyschen/note/909103
   [12]: https://www.zybuluo.com/aloyschen/note/911907
   [13]: https://www.zybuluo.com/aloyschen/note/910553
+  [14]: https://www.zybuluo.com/aloyschen/note/913195
