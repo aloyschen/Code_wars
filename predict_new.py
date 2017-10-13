@@ -53,9 +53,24 @@ def scale_percentile(matrix):
     matrix = (matrix - mins[None, :]) / maxs[None, :]
     # 再将数据reshape成图像的大小
     matrix = np.reshape(matrix, [w, h, d])
-    matrix = matrix.clip(0, 1)
+    # matrix = matrix.clip(0, 1)
     return matrix
 
+def standard_deviation_normalization(matrix):
+    """
+    将矩阵中的每个值减去均值，除以标准差进行归一化
+    Parameters
+    ----------
+        matrix: 待归一化处理的图像矩阵
+    Returns
+    -------
+        matrix: 经过归一化处理的图像矩阵
+    """
+    weight, width, passageway = matrix.shape
+    matrix = matrix.reshape(weight * width, passageway)
+    matrix = (matrix - matrix.mean(axis=0)) / matrix.std(axis=0)
+    matrix = matrix.reshape(weight, width, passageway)
+    return matrix
 
 
 def predict_model(batch_size = 1, input_size_height = 24, input_size_width = 24, input_passageway_num = 8):
@@ -107,7 +122,7 @@ def predict_model(batch_size = 1, input_size_height = 24, input_size_width = 24,
 
 
 
-def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step = 2, gpu_index = "0"):
+def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step = 2, gpu_index = "1", model_path = 'model0.ckpt', threshold = 0.5):
     """
     该函数是预测2015和2017图像拼接在一起的24*24的图像的结果，
     然后将结果拼接成一个矩阵，存储为tif格式
@@ -119,6 +134,7 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
         width_step: 沿宽度方向滑动步长
         gpu_index: 使用gpu的编号
     """
+    num = 0
     os.environ["CUDA_VISIBLE_DEVICES"] = gpu_index
     im_2015 = tiff.imread(FILE_2015).transpose([1, 2, 0])
     im_2017 = tiff.imread(FILE_2017).transpose([1, 2, 0])
@@ -130,11 +146,8 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
     with tf.Session(config = tf.ConfigProto(gpu_options = gpu_options)) as sess:
         tf.global_variables_initializer().run()
         saver = tf.train.Saver()
-        model_path = 'model0.ckpt'
-        threshold = 0.5
         saver.restore(sess, model_path)
         init_time = time.time()
-        num = 0
         print ('all=',int(((a - each_weight) / weight_step))*int((b - each_width) / width_step))
         last_time = time.time()
         for i in range(int(((a - each_weight) / weight_step))):
@@ -143,8 +156,8 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
                 he = hs + each_weight
                 ws = j * width_step
                 we = ws + each_width
-                test_2015 = scale_percentile(im_2015[hs:he, ws:we, :])
-                test_2017 = scale_percentile(im_2017[hs:he, ws:we, :])
+                test_2015 = standard_deviation_normalization(im_2015[hs:he, ws:we, :])
+                test_2017 = standard_deviation_normalization(im_2017[hs:he, ws:we, :])
                 test_input = np.array([np.concatenate((test_2015, test_2017), axis = 2)])
                 result = sess.run(predict, feed_dict = {image_holder: test_input}).flatten().reshape(24,24)
                 image_array[hs:he, ws:we] += result

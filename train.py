@@ -77,7 +77,7 @@ def variable_with_weight_loss(shape, stddev, wl):
 
 
 
-def train_model(input_size_height = 24, input_size_width = 24, input_passageway_num = 8, model_path = 'model0.ckpt', batch_size = 128):
+def train_model(input_size_height = 24, input_size_width = 24, input_passageway_num = 8, model_path = Model_Path, batch_size = 128):
     """
     该函数用于创建训练模型
     Parameters
@@ -146,7 +146,7 @@ def log_loss(logits, labels):
 
 
 
-def run_train(gpu_index = "0", model_path = 'model0.ckpt', iter_num = 10000, batch_size = 128, learning_rate = 0.001):
+def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 10000, batch_size = 128, learning_rate = 0.001):
     """
     该函数用于训练、保存模型
     Parameters
@@ -191,14 +191,3 @@ def run_train(gpu_index = "0", model_path = 'model0.ckpt', iter_num = 10000, bat
 
 if __name__ == "__main__":
     run_train()
-    # predict=predict=tf.nn.sigmoid(logits)
-    # saver.restore(sess, model_path)
-    # result = sess.run(predict, feed_dict={image_holder: image_batch})
-
-
-
-
-
-
-
-# num_examples = 10000
