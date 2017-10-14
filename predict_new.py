@@ -122,7 +122,7 @@ def predict_model(batch_size = 1, input_size_height = 24, input_size_width = 24,
 
 
 
-def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step = 2, gpu_index = "1", model_path = 'model0.ckpt', threshold = 0.5):
+def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step = 2, gpu_index = "1", model_path = 'model1.ckpt', threshold = 0.5):
     """
     该函数是预测2015和2017图像拼接在一起的24*24的图像的结果，
     然后将结果拼接成一个矩阵，存储为tif格式
@@ -169,8 +169,7 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
         image_array[image_array >= threshold] = 1
         image_array[image_array < threshold] = 0
         image_array = image_array.astype('uint8')
-        img_out = Image.fromarray(image_array)
-        img_out.save('result.tiff')
+        tiff.imsave("result.tif", image_array)
     # print((time.time() - init_time))
     # print('result=', type(result), result.shape)
     # result = result.flatten()
