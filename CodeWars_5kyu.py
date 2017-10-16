@@ -83,17 +83,17 @@ def my_very_own_split(string, delimiter = None):
     -------
         string: 分割后的字符串列表
     """
-    exp = re.compile(r'\s+' if delimiter is None else re.escape(delimiter))
     pos = 0
-    while True:
-        m = exp.search(string, pos)
-        if not m:
-            if pos < len(string) or delimiter is not None:
-                yield string[pos:]
-            break
-        if pos < m.start() or delimiter is not None:
-            yield string[pos:m.start()]
+    if delimiter == '':
+        raise ValueError('empty delimiter')
+    if delimiter == None:
+        delimiter = '\s+'
+    else:
+        delimiter = re.escape(delimiter)
+    for m in re.finditer(delimiter, string):
+        yield string[pos:m.start()]
         pos = m.end()
+    yield string[pos:]
 
 
 if __name__ == "__main__":
