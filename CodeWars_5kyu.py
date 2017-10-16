@@ -70,8 +70,35 @@ def who_eats_who(zoo):
 
     return ansLst + [','.join(zooLst)]
 
+
+
+def my_very_own_split(string, delimiter = None):
+    """
+    该函数实现split的功能，并且使用生成器generator实现
+    Parameters
+    ----------
+        string: 输入字符串
+        delimiter: 字符串分隔符
+    Returns
+    -------
+        string: 分割后的字符串列表
+    """
+    exp = re.compile(r'\s+' if delimiter is None else re.escape(delimiter))
+    pos = 0
+    while True:
+        m = exp.search(string, pos)
+        if not m:
+            if pos < len(string) or delimiter is not None:
+                yield string[pos:]
+            break
+        if pos < m.start() or delimiter is not None:
+            yield string[pos:m.start()]
+        pos = m.end()
+
+
 if __name__ == "__main__":
     print(domain_name("http://www.zombie-bites.com"))
     print(isPP(81))
     print(to_camel_case("A-Pippi-is_pippi"))
     print(who_eats_who("sheep,leaves,panda,sheep,bicycle,chicken,leaves,grass,big-fish,sheep,grass"))
+    print(list(my_very_own_split('abc,#def#,ghi,#jkl', ',#')))

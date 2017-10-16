@@ -140,6 +140,7 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
     im_2017 = tiff.imread(FILE_2017).transpose([1, 2, 0])
     a, b, c = im_2015.shape
     image_array = np.zeros((a, b))
+    num_matrix = np.zeros((a, b))
     predict, image_holder = predict_model()
     print('each_pic_size =', each_weight * each_width, '=', each_weight, '*', each_width)
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction = 0.8)
@@ -161,15 +162,20 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
                 test_input = np.array([np.concatenate((test_2015, test_2017), axis = 2)])
                 result = sess.run(predict, feed_dict = {image_holder: test_input}).flatten().reshape(24,24)
                 image_array[hs:he, ws:we] += result
+                num_matrix[hs:he, ws:we] += np.zeros([each_weight, each_width])
                 num += 1
-                if num % 1000 == 0:
+                if num % 10000 == 0:
                     this_time = time.time()
-                    print (num,this_time-last_time,(this_time-init_time)*1000/num)
+                    print(num,this_time-last_time,(this_time-init_time)*10000/num)
                     last_time=this_time
+
+        num_matrix = num_matrix.clip(min=1)
+        image_array = image_array / num_matrix
         image_array[image_array >= threshold] = 1
         image_array[image_array < threshold] = 0
         image_array = image_array.astype('uint8')
         tiff.imsave("result.tif", image_array)
+        print("predict finish")
     # print((time.time() - init_time))
     # print('result=', type(result), result.shape)
     # result = result.flatten()

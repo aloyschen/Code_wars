@@ -24,3 +24,5 @@ split_pic_for_train.py
 fuck_predict.py
 guangzhou.py
 /data/
+/result/
+/gt/

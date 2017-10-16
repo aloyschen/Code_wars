@@ -146,7 +146,7 @@ def log_loss(logits, labels):
 
 
 
-def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 10000, batch_size = 128, learning_rate = 0.001):
+def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 12000, batch_size = 128, learning_rate = 0.001, each_steps_save = 10000):
     """
     该函数用于训练、保存模型
     Parameters
@@ -173,9 +173,7 @@ def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 10000, batch_
         start_index = 0
         for step in range(iter_num):
             start_time = time.time()
-        # image_batch, label_batch = sess.run([images_train, labels_train])
             image_batch, label_batch, start_index = read_2_namelist(name_list, batch_size, start_index)
-        # print (label_batch.shape)
             _, loss_value = sess.run([train_op, loss], feed_dict={image_holder: image_batch, label_holder: label_batch})
             duration = time.time() - start_time
             if step % 10 == 0:
