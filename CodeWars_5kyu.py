@@ -101,4 +101,6 @@ if __name__ == "__main__":
     print(isPP(81))
     print(to_camel_case("A-Pippi-is_pippi"))
     print(who_eats_who("sheep,leaves,panda,sheep,bicycle,chicken,leaves,grass,big-fish,sheep,grass"))
-    print(list(my_very_own_split('abc,#def#,ghi,#jkl', ',#')))
+    generator = my_very_own_split('abc,#def#,ghi,#jkl', ',#')
+    print(next(generator))
+    print(next(generator))

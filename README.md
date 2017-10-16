@@ -26,6 +26,8 @@
 [德州扑克比大小][13]
 - **2017.10.12**
 [动物园谁吃谁][14]
+- **2017.10.16**
+[自己定义split函数][15]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -41,3 +43,4 @@
   [12]: https://www.zybuluo.com/aloyschen/note/911907
   [13]: https://www.zybuluo.com/aloyschen/note/910553
   [14]: https://www.zybuluo.com/aloyschen/note/913195
+  [15]: https://www.zybuluo.com/aloyschen/note/917384
