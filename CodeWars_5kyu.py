@@ -96,6 +96,23 @@ def my_very_own_split(string, delimiter = None):
     yield string[pos:]
 
 
+def nico(key, message):
+    """
+
+    Parameters
+    ----------
+        key: 解析message中字母顺序的key
+        message: 待解析的字符串
+    Returns
+    -------
+        message: 解析之后的字符串
+    """
+    K, ll = {i:key.index(c) for i, c in enumerate(sorted(key))}, len(key)
+    words = [message[k*ll:k*ll + ll].ljust(ll) for k in range((len(message) + ll -1) // ll)]
+    print(K)
+    print(words)
+    return ''.join(''.join(w[K[i]] for i in range(ll)) for w in words)
+
 if __name__ == "__main__":
     print(domain_name("http://www.zombie-bites.com"))
     print(isPP(81))
@@ -103,4 +120,4 @@ if __name__ == "__main__":
     print(who_eats_who("sheep,leaves,panda,sheep,bicycle,chicken,leaves,grass,big-fish,sheep,grass"))
     generator = my_very_own_split('abc,#def#,ghi,#jkl', ',#')
     print(next(generator))
-    print(next(generator))
+    print(nico("crazy", "secretinformation"))
