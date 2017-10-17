@@ -28,6 +28,8 @@
 [动物园谁吃谁][14]
 - **2017.10.16**
 [自己定义split函数][15]
+- **2017.10.17**
+[根据字符串的顺序key来对字符串编码][16]
 
   [1]: https://www.zybuluo.com/aloyschen/note/899598
   [2]: https://www.zybuluo.com/aloyschen/note/899615
@@ -44,3 +46,4 @@
   [13]: https://www.zybuluo.com/aloyschen/note/910553
   [14]: https://www.zybuluo.com/aloyschen/note/913195
   [15]: https://www.zybuluo.com/aloyschen/note/917384
+  [16]: https://www.zybuluo.com/aloyschen/note/918668
