@@ -10,7 +10,7 @@ import random
 import tifffile as tiff
 
 
-train_Path = '../training_pic/'
+train_Path = '../training_pic_200_550/'
 Model_Path = 'model0.ckpt'
 
 
@@ -146,7 +146,7 @@ def log_loss(logits, labels):
 
 
 
-def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 12000, batch_size = 128, learning_rate = 0.001, each_steps_save = 10000):
+def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 20000, batch_size = 128):
     """
     该函数用于训练、保存模型
     Parameters
@@ -164,10 +164,7 @@ def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 12000, batch_
     saver=tf.train.Saver()
     os.environ["CUDA_VISIBLE_DEVICES"] = gpu_index
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction = 0.8)
-    config = tf.ConfigProto(gpu_options = gpu_options)
-    with tf.Session() as sess:
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
+    with tf.Session(config = tf.ConfigProto(gpu_options = gpu_options)) as sess:
         tf.global_variables_initializer().run()
         tf.train.start_queue_runners()
         start_index = 0
@@ -176,16 +173,14 @@ def run_train(gpu_index = "0", model_path = Model_Path, iter_num = 12000, batch_
             image_batch, label_batch, start_index = read_2_namelist(name_list, batch_size, start_index)
             _, loss_value = sess.run([train_op, loss], feed_dict={image_holder: image_batch, label_holder: label_batch})
             duration = time.time() - start_time
-            if step % 10 == 0:
+            if step % 1000 == 0:
+                saver.save(sess, model_path)
                 examples_per_sec = batch_size / duration
                 sec_per_batch = float(duration)
                 format_str = ('step %d,loss=%.2f(%1.f examples/sec;%.3f sec/batch)')
                 print('\r' + format_str % (step, loss_value, examples_per_sec, sec_per_batch), end="3" )
-            if step % 100 == 0:
-                print()
+    print ('training finish')
 
-        print ('training finish')
-        save_path = saver.save(sess, model_path)
 
 if __name__ == "__main__":
     run_train()

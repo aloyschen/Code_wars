@@ -107,11 +107,10 @@ def nico(key, message):
     -------
         message: 解析之后的字符串
     """
-    K, ll = {i:key.index(c) for i, c in enumerate(sorted(key))}, len(key)
-    words = [message[k*ll:k*ll + ll].ljust(ll) for k in range((len(message) + ll -1) // ll)]
-    print(K)
-    print(words)
-    return ''.join(''.join(w[K[i]] for i in range(ll)) for w in words)
+    idx = {i : key.index(character) for i, character in enumerate(sorted(key))}
+    length = len(key)
+    words = [message[num * length : num * length + length].ljust(length) for num in range((len(message) + length - 1) // length)]
+    return ''.join(''.join(w[idx[i]] for i in range(length)) for w in words)
 
 if __name__ == "__main__":
     print(domain_name("http://www.zombie-bites.com"))

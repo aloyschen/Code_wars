@@ -5,13 +5,13 @@
 
 import tensorflow as tf
 import numpy as np
-from PIL import Image
 import tifffile as tiff
 import time
 import os
 
 FILE_2015 = '../data/quickbird2015.tif'
 FILE_2017 = '../data/quickbird2017.tif'
+MODEL_PATH = 'model0.ckpt'
 
 
 def variable_with_weight_loss(shape, stddev, wl):
@@ -122,7 +122,7 @@ def predict_model(batch_size = 1, input_size_height = 24, input_size_width = 24,
 
 
 
-def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step = 2, gpu_index = "1", model_path = 'model1.ckpt', threshold = 0.5):
+def predict_final(each_weight = 24, each_width = 24, weight_step = 12, width_step = 12, gpu_index = "1", model_path = MODEL_PATH, threshold = 0.5):
     """
     该函数是预测2015和2017图像拼接在一起的24*24的图像的结果，
     然后将结果拼接成一个矩阵，存储为tif格式
@@ -176,14 +176,6 @@ def predict_final(each_weight = 24, each_width = 24, weight_step = 2, width_step
         image_array = image_array.astype('uint8')
         tiff.imsave("result.tif", image_array)
         print("predict finish")
-    # print((time.time() - init_time))
-    # print('result=', type(result), result.shape)
-    # result = result.flatten()
-    # print(result.shape)
-    # print(result[:10])
-    # result = result.reshape(24, 24)
-    # print(result.shape)
-    # print('result =', result[:3, :3])
 
 
 if __name__ == "__main__":
