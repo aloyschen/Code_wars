@@ -1,58 +1,44 @@
+from collections import defaultdict
+import csv
+import sys
+
 import cv2
 import numpy as np
-import os
+import tifffile as tiff
 
-max_label = 1
+import matplotlib.pyplot as plt
 
+FILE_2015 = './data/quickbird2015.tif'
+FILE_2017 = './data/quickbird2017.tif'
+FILE_cadastral2015 = './data/cadastral2015.tif'
+FILE_tinysample = './data/tinysample.tif'
 
-def fast_hist(a, b, n):
-    k = (a >= 0) & (a < n)
-    return np.bincount(n * a[k].astype(int) + b[k], minlength=n ** 2).reshape(n, n)
+im_2015 = tiff.imread(FILE_2015).transpose([1, 2, 0])
 
+im_2017 = tiff.imread(FILE_2017).transpose([1, 2, 0])
 
-def get_iou(pred, gt):
-    if pred.shape != gt.shape:
-        print('pred shape', pred.shape, 'gt shape', gt.shape)
-    assert (pred.shape == gt.shape)
-    gt = gt.astype(np.float32)
-    pred = pred.astype(np.float32)
+im_tiny = tiff.imread(FILE_tinysample)
 
-    count = np.zeros((max_label + 1,))
-    for j in range(max_label + 1):
-        x = np.where(pred == j)
-        p_idx_j = set(zip(x[0].tolist(), x[1].tolist()))
-        x = np.where(gt == j)
-        GT_idx_j = set(zip(x[0].tolist(), x[1].tolist()))
-        # pdb.set_trace()
-        n_jj = set.intersection(p_idx_j, GT_idx_j)
-        u_jj = set.union(p_idx_j, GT_idx_j)
-
-        if len(GT_idx_j) != 0:
-            count[j] = float(len(n_jj)) / float(len(u_jj))
-
-    result_class = count
-    Aiou = np.sum(result_class[:]) / float(len(np.unique(gt)))
-
-    return Aiou
+im_cada = tiff.imread(FILE_cadastral2015)
 
 
-result_paths = list(map(lambda x: os.path.join('result', x), os.listdir('result')))
 
-gt_paths = list(map(lambda x: os.path.join('gt', x), os.listdir('gt')))
+def scale_percentile(matrix):
+    w, h, d = matrix.shape
+    matrix = np.reshape(matrix, [w * h, d]).astype(np.float64)
+    # Get 2nd and 98th percentile
+    mins = np.percentile(matrix, 1, axis=0)
+    maxs = np.percentile(matrix, 99, axis=0) - mins
+    matrix = (matrix - mins[None, :]) / maxs[None, :]
+    matrix = np.reshape(matrix, [w, h, d])
+    matrix = matrix.clip(0, 1)
+    return matrix
 
-hist = np.zeros((max_label + 1, max_label + 1))
-pytorch_list = []
-for i in range(len(gt_paths)):
-    gt = cv2.imread(gt_paths[i], 0)
-    output = cv2.imread(result_paths[i], 0)
+fig, axes = plt.subplots(ncols=2, nrows=1, figsize=(16, 6))
 
-    gt = np.where(gt > 100, 1, 0)
-    output = np.where(output > 100, 1, 0)
-
-    iou_pytorch = get_iou(output, gt)
-    hist += fast_hist(gt.flatten(), output.flatten(), max_label + 1)
-
-    pytorch_list.append(iou_pytorch)
-
-miou = np.diag(hist) / (hist.sum(1) + hist.sum(0) - np.diag(hist))
-print("Mean iou = ", np.sum(miou) / len(miou))
+p1 = plt.subplot(121)
+i1 = p1.imshow(scale_percentile(im_2015[100:1000, 100:1000, :3]))
+plt.colorbar(i1)
+print(im_2015[100:1000, 100:1000, :3])
+matrix = scale_percentile(im_2015[100:1000, 100:1000, :3])
+print("after scale", matrix[:, :, :3])
