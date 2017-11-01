@@ -1,4 +1,6 @@
 import collections
+from collections import namedtuple
+import os
 
 card = collections.namedtuple('card', ['rank', 'suit'])
 
@@ -27,14 +29,31 @@ def high_card(card):
         card: 输入的纸牌
     Returns
     -------
+        每张牌的得分数
     """
     suit_value = dict(黑桃 = 3, 红桃 = 2, 方块 = 1, 梅花 = 0)
     rank_value = FrenchDeck.ranks.index(card.rank)
     return rank_value * len(suit_value) + suit_value[card.suit]
 
 
+def tuple_unpack():
+    """
+    tuple的意义和Collections.namedtuple的使用
+    :return:
+    """
+    location = (23, -100)
+    # tuple中数据的位置可以当做字段，这样我们就可以方便对tuple进行拆包，只要元素一一对应
+    x, y = location
+    print("x = ", x, "y = ", y)
+    fillname, _ = os.path.split("/usr/gaochen3/python/test.txt")
+    print(fillname)
+    person = namedtuple("person", "name, age, gender, city, university")
+    you = person("no", 23, "man", "beijing", "qinghua")
+    print(you.name)
+
 if __name__ == "__main__":
-    deck = FrenchDeck()
-    print(len(deck), "\neleven card: ", deck[36])
-    for card in sorted(deck, key = high_card):
-        print(card)
+    # deck = FrenchDeck()
+    # print(len(deck), "\neleven card: ", deck[36])
+    # for card in sorted(deck, key = high_card):
+    #     print(card)
+    tuple_unpack()
