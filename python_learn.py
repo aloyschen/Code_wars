@@ -64,9 +64,13 @@ def Tshirts():
     """
     colors = ['red', 'blue', 'black']
     sizes = ['M', 'L', 'XL', 'XXL']
+    # 使用列表推导式，先创建一个列表
     Tshirts = [(color, size) for color in colors for size in sizes]
     for Tshirt in Tshirts:
         print("Tshirt: ", Tshirt)
+    # 使用生成器表达式代替列表推导式，可以节省内存开销, 逐个产生元素
+    for tshirt in ('%s %s' % (c, s) for c in colors for s in sizes):
+        print(tshirt)
 
 if __name__ == "__main__":
     # deck = FrenchDeck()
@@ -74,3 +78,4 @@ if __name__ == "__main__":
     # for card in sorted(deck, key = high_card):
     #     print(card)
     tuple_unpack()
+    Tshirts()
