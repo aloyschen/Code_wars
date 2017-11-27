@@ -43,6 +43,7 @@ def high_card(card):
 def tuple_unpack():
     """
     tuple的意义和Collections.namedtuple的使用
+    学习使用python的format格式控制
     """
     location = (23, -100)
     # tuple中数据的位置可以当做字段，这样我们就可以方便对tuple进行拆包，只要元素一一对应
@@ -53,6 +54,13 @@ def tuple_unpack():
     person = namedtuple("person", "name, age, gender, city, university")
     you = person("no", 23, "man", "beijing", "qinghua")
     print(you.name)
+    metro_areas = [('Tokyo', 'JP', 36.933, (35.689722, 139.61877)),
+                   ('Mexico City', 'MX', 20.142, (29.433333, -19.133333))]
+    print('{:15} | {:^9} | {:^9} '.format('', 'lat.', 'long.'))
+    fmt = '{:15} | {:^9.4f} | {:^9.4f}'
+    for city, cc, pop, (latitude, longitude) in metro_areas:
+        if longitude < 0:
+            print(fmt.format(city, latitude, longitude))
 
 
 def Tshirts():
@@ -78,4 +86,4 @@ if __name__ == "__main__":
     # for card in sorted(deck, key = high_card):
     #     print(card)
     tuple_unpack()
-    Tshirts()
+    # Tshirts()
