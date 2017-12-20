@@ -26,3 +26,6 @@ guangzhou.py
 /data/
 /result/
 /gt/
+live_hot_statistic.py
+plotbar.py
+
