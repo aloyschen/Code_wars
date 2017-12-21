@@ -39,9 +39,11 @@ def plot_data(data):
     for uid in data:
         feature.append(float(data[uid]))
     max_data = max(feature)
+    separation = (int(str(max_data)[0]) + 1) * len(str(max_data))
+    print('separation: ', separation)
     median = get_median(feature)
     print("max_data: {0} median: {1}".format(max_data, median))
-    separation = 0.1
+    # separation = 0.1
     for iter in range(11):
         data_range.append(round(separation * iter, 1))
     for iter in range(10):
@@ -98,10 +100,13 @@ def compute_ratio(people_path, feature_path):
 
 def plot_bar(people_path, feature_path, figure, time):
     """
-    绘制数据分布直方图
-    :param people_path:
-    :param feature_path:
-    :return:
+    绘制不同时间点的数据分布直方图
+    Parameters
+    ----------
+        people_path: 观看人数的数据文件
+        feature_path: 特征值的数据文件
+        figure: 绘制直方图的序号
+        time: 对应的时间点
     """
     ratio = compute_ratio(people_path + str(time) + '.txt', feature_path + str(time) + '.txt')
     data_range, people = plot_data(ratio)
@@ -118,11 +123,12 @@ def plot_bar(people_path, feature_path, figure, time):
 
 def plot_all(feature_path, people_path, total_time):
     """
-
-    :param feature_path:
-    :param people_path:
-    :param total_time:
-    :return:
+    将不同时间点的直方图绘制到一个图片中
+    Parameters
+    ----------
+        feature_path: 特征数据文件
+        people_path: 观看人数数据文件
+        total_time: 所有时间列表
     """
     figure = 0
     for element in total_time:
@@ -132,14 +138,29 @@ def plot_all(feature_path, people_path, total_time):
 
 
 def plot(feature_path, total_time):
+    """
+    绘制单独特征的数据直方图，包括所有时间点的数据
+    Parameters
+    ----------
+        feature_path: 特征值的数据文件
+        total_time: 所有时间列表
+    """
     figure = 0
     for element in total_time:
-        plot_income(feature_path, figure,element)
+        plot_one(feature_path, figure,element)
         figure += 1
     plt.show()
 
-def plot_income(people_path, figure, time):
-    data = read_file(people_path + str(time) + '.txt')
+def plot_one(feature_path, figure, time):
+    """
+    绘制单个特征的直方图，一个时间点的数据
+    Parameters
+    ----------
+        feature_path: 特征数据文件
+        figure: 绘制直方图的序号
+        time: 直方图对应的时间点
+    """
+    data = read_file(feature_path + str(time) + '.txt')
     data_range, people = plot_data(data)
     width = 0.9
     ind = range(len(people))
@@ -150,6 +171,8 @@ def plot_income(people_path, figure, time):
     plt.xlabel(u'消费金额(单位：万）', fontproperties = font)
     plt.title(u'消费金额分布({0}点)'.format(time), fontproperties = font)
     plt.xticks(ind, ('[{0},{1}]'.format(int(data_range[iter] / 10000), int(data_range[iter + 1] / 10000))  for iter in range(len(data_range) - 1)))
+
+
 
 if __name__ == '__main__':
     total_time = [5, 13, 22]
