@@ -39,11 +39,16 @@ def plot_data(data):
     for uid in data:
         feature.append(float(data[uid]))
     max_data = max(feature)
-    separation = (int(str(max_data)[0]) + 1) * len(str(max_data))
-    print('separation: ', separation)
+    count = 0
+
     median = get_median(feature)
     print("max_data: {0} median: {1}".format(max_data, median))
     # separation = 0.1
+    while max_data != 0:
+        max_data = max_data // 10
+        count += 1
+    separation = (max_data + 1) * (10 ** (count - 1))
+    print('separation: {} count: {}'.format(separation, count))
     for iter in range(11):
         data_range.append(round(separation * iter, 1))
     for iter in range(10):
