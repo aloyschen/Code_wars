@@ -23,10 +23,10 @@ def read_data(data_path):
                 "z_filtered_recip_num", "watch_num", "gift_amount", "like_num", "watch_time",
                 "comment_num", "u_tagscore", "z_tagscore"]
     data = pd.read_csv(data_path, header = None, sep = '\t', names = columns_name)
-    print(data.head())
-    scaler = preprocessing.StandardScaler(with_mean = True, with_std = True).fit(data['minute'].values.reshape(-1, 1))
-    test = scaler.transform(data['minute'].values.reshape(-1, 1))
-    print('转换前：\n {} \n 转化后：\n {}'.format(data['minute'].values.reshape(-1, 1), test))
+    print(data['u_prov_id'].value_counts())
+    # scaler = preprocessing.StandardScaler(with_mean = True, with_std = True).fit(data['minute'].values.reshape(-1, 1))
+    # test = scaler.transform(data['minute'].values.reshape(-1, 1))
+    # print('转换前：\n {} \n 转化后：\n {}'.format(data['minute'].values.reshape(-1, 1), test))
     return data
 
 

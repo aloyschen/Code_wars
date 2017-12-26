@@ -6,6 +6,7 @@ import bisect
 
 card = collections.namedtuple('card', ['rank', 'suit'])
 
+
 class FrenchDeck:
     """
     构建一个扑克牌类，定义初始化方法，获取元素方法，以及获取元素长度的方法
@@ -25,7 +26,6 @@ class FrenchDeck:
         return self._cards[item]
 
 
-
 def high_card(card):
     """
     该函数是对纸牌排序的分数值计算
@@ -36,7 +36,7 @@ def high_card(card):
     -------
         每张牌的得分数
     """
-    suit_value = dict(黑桃 = 3, 红桃 = 2, 方块 = 1, 梅花 = 0)
+    suit_value = dict(黑桃=3, 红桃=2, 方块=1, 梅花=0)
     rank_value = FrenchDeck.ranks.index(card.rank)
     return rank_value * len(suit_value) + suit_value[card.suit]
 
@@ -81,7 +81,8 @@ def Tshirts():
     for tshirt in ('%s %s' % (c, s) for c in colors for s in sizes):
         print(tshirt)
 
-def bitsect(bisect_fn):
+
+def bitsect_demo(bisect_fn):
     """
     该函数利用二分查找搜索列表中指定的元素
     Parameters
@@ -99,11 +100,27 @@ def bitsect(bisect_fn):
         print(row_format.format(needle, position, offset))
 
 
+def grade_find(score, breakPoints = None, grades='FDCBA'):
+    """
+    该函数根据分数进行分段，找到对应的成绩
+    Parameters
+    ----------
+        score: 分数
+        breakPoints: 分数上下限
+    """
+    if breakPoints is None:
+        breakPoints = [60, 70, 80, 90, 100]
+    for grade in score:
+        i = bisect.bisect(breakPoints, grade)
+        print(grades[i] + " ")
+
+
 if __name__ == "__main__":
     # deck = FrenchDeck()
     # print(len(deck), "\neleven card: ", deck[36])
     # for card in sorted(deck, key = high_card):
     #     print(card)
     # tuple_unpack()
-    bitsect(bisect.bisect)
+    # bitsect(bisect.bisect)
     # Tshirts()
+    grade_find([22, 78])
