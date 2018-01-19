@@ -1,9 +1,12 @@
 import collections
 from collections import namedtuple
 import os, sys
+import array
 import numpy as np
+import random
 import bisect
-
+import requests
+import re
 card = collections.namedtuple('card', ['rank', 'suit'])
 
 
@@ -99,6 +102,19 @@ def bitsect_demo(bisect_fn):
         offset = position * '  |'
         print(row_format.format(needle, position, offset))
 
+def bisect_insort():
+    """
+    该函数利用bisect向有序列表中插入元素
+    Return
+    ------
+        None
+    """
+    my_list = []
+    for i in range(10):
+        new_item = random.randrange(10)
+        bisect.insort(my_list, new_item)
+        print('%2d -> ' % new_item, my_list)
+
 
 def grade_find(score, breakPoints = None, grades='FDCBA'):
     """
@@ -115,6 +131,29 @@ def grade_find(score, breakPoints = None, grades='FDCBA'):
         print(grades[i] + " ")
 
 
+
+def doule_arr():
+    """
+    该函数利用array创建一个1000万数据的数组，然后存储到本地文件中，再读取出来
+    Parameters
+    ----------
+        None
+    Return:
+        None
+    """
+    float_arr = array.array('d', (random.random() for i in range(10 ** 7)))
+    fp = open('float.bin', 'wb')
+    float_arr.tofile(fp)
+    fp.close()
+    float_arr_read = array.array('d')
+    fp_read = open('float.bin', 'rb')
+    float_arr_read.fromfile(fp_read, 10 ** 7)
+    fp_read.close()
+    if float_arr_read == float_arr:
+        print('this is same')
+
+
+
 if __name__ == "__main__":
     # deck = FrenchDeck()
     # print(len(deck), "\neleven card: ", deck[36])
@@ -123,4 +162,6 @@ if __name__ == "__main__":
     # tuple_unpack()
     # bitsect(bisect.bisect)
     # Tshirts()
-    grade_find([22, 78])
+    # grade_find([22, 78])
+    # bisect_insort()
+    doule_arr()
