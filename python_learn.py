@@ -154,6 +154,20 @@ def doule_arr():
 
 
 
+def memory_test():
+    """
+    该函数是利用内存视图共享数据，不复制的情况下使用同一块内存内容
+    Parameters
+    ----------
+        None
+    Return:
+    ------
+        None
+    """
+    array_memory = array.array('h', [-2, 6, 1, 0, 7])
+    mec = memoryview(array_memory)
+    print(mec.cast('B').tolist())
+
 if __name__ == "__main__":
     # deck = FrenchDeck()
     # print(len(deck), "\neleven card: ", deck[36])
@@ -164,4 +178,5 @@ if __name__ == "__main__":
     # Tshirts()
     # grade_find([22, 78])
     # bisect_insort()
-    doule_arr()
+    # doule_arr()
+    memory_test()
