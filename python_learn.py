@@ -165,6 +165,8 @@ def memory_test():
         None
     """
     array_memory = array.array('h', [-2, 6, 1, 0, 7])
+    octets = bytes(array_memory)
+    print(octets)
     mec = memoryview(array_memory)
     print(mec.cast('B').tolist())
 
