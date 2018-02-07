@@ -7,9 +7,9 @@ import pandas as pd
 from sklearn import preprocessing
 
 
-def read_data(data_path):
+def ReadData(data_path):
     """
-    将数据读取进pandas的dataframe中
+    将数据读取进pandas的dataframe中, 并去除样本中包含null的值
     Parameters
     ----------
         data_path: 数据文件路径
@@ -23,12 +23,36 @@ def read_data(data_path):
                 "z_filtered_recip_num", "watch_num", "gift_amount", "like_num", "watch_time",
                 "comment_num", "u_tagscore", "z_tagscore"]
     data = pd.read_csv(data_path, header = None, sep = '\t', names = columns_name)
-    print(data['u_prov_id'].value_counts())
+    data = data.dropna(how = 'all')
+    # print(data['u_prov_id'].value_counts())
     # scaler = preprocessing.StandardScaler(with_mean = True, with_std = True).fit(data['minute'].values.reshape(-1, 1))
     # test = scaler.transform(data['minute'].values.reshape(-1, 1))
     # print('转换前：\n {} \n 转化后：\n {}'.format(data['minute'].values.reshape(-1, 1), test))
     return data
 
 
+def CrossFeatures(data):
+    """
+    增加主播和用户的交叉特征
+    :param data:
+    :return:
+    """
+
+def DataPreprocessing(data):
+    """
+    对数据进行预处理，包括一下几个步骤：
+    1、根据用户和主播的城市、性别信息增加交叉特征；
+    2、计算用户和主播标签相同数目；
+    3、对连续数据进行归一化处理；
+    4、对类别特征进行onehot编码：
+    连续特征使用GBDT模型组合，然后和经过ont_hot编码的类别特征一起通过LR模型进行处理
+    Parameters
+    ----------
+        data: 包含所有样本数据的dataframe
+    Returns
+    -------
+
+    """
+
 if __name__ == "__main__":
-    read_data('/Users/gaochen3/sina_study/java_study/train.txt')
+    ReadData('/Users/gaochen3/sina_study/java_study/train.txt')
