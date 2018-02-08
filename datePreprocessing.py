@@ -4,6 +4,7 @@
 # Date: 2017.12.22
 
 import pandas as pd
+import numpy as np
 from sklearn import preprocessing
 
 
@@ -33,12 +34,26 @@ def ReadData(data_path):
 
 def CrossFeatures(data):
     """
-    增加主播和用户的交叉特征
-    :param data:
-    :return:
+    增加主播和用户的交叉特征, 若省份ID相同则为1，若城市ID相同则为1，若性别相同则为1；
+    计算主播和用户标签列表中相同的数目
+    Parameters
+    ----------
+        data: 包含样本数据的dataframe
+    Return
+        result: 增加交叉特征之后的dataframe
     """
+    data['u_z_prov_id'] = np.where(data['u_prov_id'] == data['z_prov_id'], 1, 0)
+    data['u_z_city_id'] = np.where(data['u_city_id'] == data['z_city_id'], 1, 0)
+    data['u_z_gender'] = np.where(data['u_gender'] == data['z_gender'], 1, 0)
+    data['same_tag'] = [set(x[0].split(',')) & set(x[1].split(',')) for x in data[['u_tagscore', 'z_tagscore']].values]
+    data['same_tag'] = data['same_tag'].str.len()
+    data = data.drop(columns = ['u_tagscore', 'z_tagscore'])
+    return data
 
-def DataPreprocessing(data):
+
+
+
+def DataPreprocessing(data_path):
     """
     对数据进行预处理，包括一下几个步骤：
     1、根据用户和主播的城市、性别信息增加交叉特征；
@@ -53,6 +68,11 @@ def DataPreprocessing(data):
     -------
 
     """
+    print("开始读取数据")
+    data = ReadData(data_path)
+    print("开始计算交叉特征")
+    data = CrossFeatures(data)
+    # print(data)
 
 if __name__ == "__main__":
-    ReadData('/Users/gaochen3/sina_study/java_study/train.txt')
+    DataPreprocessing('/Users/gaochen3/sina_study/java_study/train.txt')
