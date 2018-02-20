@@ -7,6 +7,8 @@ import random
 import bisect
 import requests
 import re
+import pandas as pd
+
 card = collections.namedtuple('card', ['rank', 'suit'])
 
 
@@ -167,8 +169,39 @@ def memory_test():
     array_memory = array.array('h', [-2, 6, 1, 0, 7])
     octets = bytes(array_memory)
     print(octets)
-    mec = memoryview(array_memory)
-    print(mec.cast('B').tolist())
+
+
+class BingoCage:
+    """
+    定义一个类的时候，可以使用__call__方法使其成为可调用对象
+    """
+    def __init__(self, items):
+        self._items = list(items)
+        random.shuffle(self._items)
+    def pick(self):
+        try:
+            return self._items.pop()
+        except IndexError:
+            return LookupError('pick from empty BingoCage')
+    def __call__(self):
+        return self.pick()
+
+
+def pandas_loc():
+    """
+    该函数是使用pandas的loc和iloc的区别，如果是使用行号作为index最好使用iloc，而如果使用其他的字母作为index则需要使用loc遍历
+    Parameters
+    ----------
+        None
+    Returns
+    -------
+        None
+    """
+    data = np.random.randn(3, 3)
+    a = pd.DataFrame(data, index=['A', 'B', 'C'], columns=['a', 'b', 'c'])
+    b = pd.DataFrame(data, index=['A', 'B', 'C'], columns=['d', 'c', 'b'])
+    temp = pd.Series(None, index=[40, 41, 42, 1, 2, 3])
+    print("iloc: \n {} \n loc: \n {}".format(temp.iloc[: 3], temp.loc[1: 3]))
 
 if __name__ == "__main__":
     # deck = FrenchDeck()
@@ -181,4 +214,8 @@ if __name__ == "__main__":
     # grade_find([22, 78])
     # bisect_insort()
     # doule_arr()
-    memory_test()
+    # mem = memory_test
+    # __doc__可以打印函数的返回信息
+    bingo = BingoCage(range(3))
+    print(bingo.pick())
+    pandas_loc()
