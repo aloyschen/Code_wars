@@ -8,6 +8,7 @@ import bisect
 import requests
 import re
 import pandas as pd
+import matplotlib.pyplot as plt
 
 card = collections.namedtuple('card', ['rank', 'suit'])
 
@@ -203,6 +204,42 @@ def pandas_loc():
     temp = pd.Series(None, index=[40, 41, 42, 1, 2, 3])
     print("iloc: \n {} \n loc: \n {}".format(temp.iloc[: 3], temp.loc[1: 3]))
 
+
+def pandas_join():
+    """
+    该函数是使用pandas做表的join操作
+    Parameters
+    ----------
+        None
+    Returns
+    -------
+        None
+    """
+
+    data1 = {"data1" : [1, 2, 3, 4], "key1" : ['a', 'b', 'c', 'd']}
+    data2 = {"data2" : [5, 6, 7], "key2" : ['a', 'c', 'd']}
+    frame1 = pd.DataFrame(data1)
+    frame2 = pd.DataFrame(data2)
+    print(pd.merge(frame1, frame2, how = "outer", right_on = "key2", left_on = "key1"))
+    print("-----------")
+    data3 = pd.DataFrame(np.arange(6).reshape(3, 2), index = ['a', 'b', 'c'], columns = ['key1', 'key2'])
+    data4 = pd.DataFrame(np.arange(4).reshape(2, 2), index = ['c', 'e'], columns = ['key1', 'key2'])
+    print(pd.concat([data3, data4]))
+    print('-----------')
+    data5 = pd.DataFrame(np.arange(6).reshape(2, 3), columns = pd.Index(['a', 'b', 'c'], name = 'columns'), index = pd.Index(['one', 'two'], name = 'index'))
+    print(data5.stack())
+    a = np.arange(10)
+    print(pd.cut(a, 4))
+    data6 = pd.DataFrame(np.random.randn(100, 3), columns = ['a', 'b', 'c'])
+    data6.plot(title = 'test')
+    ts = pd.Series(np.random.randn(1000), index=pd.date_range('1/1/2000', periods=1000))
+    ts = ts.cumsum()
+    df = pd.DataFrame(np.random.randn(1000, 4), index=ts.index, columns=list('ABCD'))
+    df = df.cumsum()
+    plt.figure()
+    df.plot()
+    plt.show()
+
 if __name__ == "__main__":
     # deck = FrenchDeck()
     # print(len(deck), "\neleven card: ", deck[36])
@@ -216,6 +253,7 @@ if __name__ == "__main__":
     # doule_arr()
     # mem = memory_test
     # __doc__可以打印函数的返回信息
-    bingo = BingoCage(range(3))
-    print(bingo.pick())
-    pandas_loc()
+    # bingo = BingoCage(range(3))
+    # print(bingo.pick())
+    # pandas_loc()
+    pandas_join()
